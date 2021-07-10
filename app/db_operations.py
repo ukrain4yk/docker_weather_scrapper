@@ -1,5 +1,10 @@
 from psycopg2 import Error
 
+import log_handler
+
+"""Logger initialization"""
+logger = log_handler.get_logger(__name__)
+
 """SQL queries definitions"""
 INSERT_QUERY_HEADER = """insert into public.weather_data(
                                     pressure, wind_speed, wind_direction,
@@ -11,22 +16,25 @@ INSERT_QUERY_HEADER = """insert into public.weather_data(
 
 
 def database_insert(db_connection, weather_data):
+    global cursor
+
     try:
         cursor = db_connection.cursor()
         cursor.execute(INSERT_QUERY_HEADER, weather_data[-1])
+        logger.debug('Weather data details to insert: %s', str(weather_data[-1]))
 
         db_connection.commit()
         count = cursor.rowcount
-        print(count, "Record inserted successfully into table")
+        logger.info("%s Record inserted successfully into table", str(count))
 
     except (Exception, Error) as error:
-        print("Failed to insert record into table. Info: ", error)
+        logger.error('Failed to insert record into table. Info: s%', str(error))
     finally:
         # closing database connection.
         if db_connection:
             cursor.close()
             db_connection.close()
-            print("PostgreSQL connection is closed")
+            logger.info("PostgreSQL connection is closed")
 
 
 # Additional data to test

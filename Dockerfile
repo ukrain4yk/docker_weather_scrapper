@@ -2,6 +2,7 @@ FROM python:3
 MAINTAINER Ukrain4yk
 
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONUTF8 1
 
 # Update system and install dependencie
 
