@@ -17,8 +17,8 @@ INSERT_QUERY_HEADER = """insert into public.weather_data(
 
 def database_insert(db_connection, weather_data):
     global cursor
-
     try:
+        logger.info('PostgreSQL connection initiated')
         cursor = db_connection.cursor()
         cursor.execute(INSERT_QUERY_HEADER, weather_data[-1])
         logger.debug('Weather data details to insert: %s', str(weather_data[-1]))
@@ -42,5 +42,5 @@ def database_insert(db_connection, weather_data):
 # record_to_insert1 = ('1004.8','1.2','ESE','10.5','12.7','2.98','59.6','brak','d.','20','184','136.7','15.9','12.3','')
 # record_to_insert2 = ('1005.9','0.4','SSE','6.8','3.9','3.46','79.2','brak','---','20','0','0','37.3','21.1', '')
 # Query execution for above data
-# cursor.execute(postgres_insert_query, record_to_insert1)
-# cursor.execute(postgres_insert_query, record_to_insert2)
+# cursor.execute(INSERT_QUERY_HEADER, record_to_insert1)
+# cursor.execute(INSERT_QUERY_HEADER, record_to_insert2)
