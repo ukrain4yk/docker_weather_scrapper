@@ -12,4 +12,4 @@ beautifulsoup4 & lxml- to parce csv (using lxml) into text and then to list
 psycopg2 - library to get conneciton to DB, in my case it's Postgres
 schedule - library to run funtion on sertain scheduled time (simular to CRON in Linux)
 
-# Ukrain4yk
+*Crontab removed since it not supported well (https://stackoverflow.com/questions/26822067/running-cron-python-jobs-within-docker), so change it to python library "schedule"
