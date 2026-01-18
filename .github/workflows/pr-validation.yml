@@ -1,0 +1,27 @@
+name: "PR Title Check #1"
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  validate-title:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Validate PR Title
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const title = context.payload.pull_request.title;
+            // Regex: Starts with type, colon, optional AB#, 6-10 digits
+            const regex = /^(feat|fix|task|test):\s+(AB#)?\d{6,10}.*/;
+            
+            if (!regex.test(title)) {
+              core.setFailed(
+                `PR Title '${title}' does not match requirements.\n` +
+                `Format: <type>: [AB#]<6-10 digits> <description>\n` +
+                `Example: 'fix: AB#12345678 Fix login error' or 'test: 12345678 Add unit tests'`
+              );
+            } else {
+              console.log("PR Title is valid.");
+            }
