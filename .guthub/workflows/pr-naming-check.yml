@@ -1,4 +1,4 @@
-name: "PR Title Check #1"
+name: "PR Title Check Workflow"
 
 on:
   pull_request:
